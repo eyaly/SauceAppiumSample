@@ -20,3 +20,4 @@ perfectoReports/
 *.pdf
 /bin
 Drivers/
+target/surefire-reports/index.html
