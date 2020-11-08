@@ -1,10 +1,10 @@
 # Running Appium Tests on Sauce Labs platform
 This project contains Java examples for running Appium tests on Sauce Labs platform:
 
-- [Native Android App real devices on Sauce Labs Platform](#run-native-app-tests-on-sauce-labs-android-real-devices-in-the-sauce-labs-platform)
-- [Web App real Android devices on Sauce Labs Platform](#run-web-app-tests-on-sauce-labs-android-real-devices-in-the-sauce-labs-platform)
-- [Native iOS App real devices on Sauce Labs Platform](#run-native-app-tests-on-sauce-labs-ios-real-devices-in-the-sauce-labs-platform)
-- [Web App real iOS devices on Sauce Labs Platform](#run-web-app-tests-on-sauce-labs-ios-real-devices-in-the-sauce-labs-platform)
+- [Native Android App on real devices](#run-native-app-tests-on-sauce-labs-android-real-devices-in-the-sauce-labs-platform)
+- [Web App on real Android devices](#run-web-app-tests-on-sauce-labs-android-real-devices-in-the-sauce-labs-platform)
+- [Native iOS App on real devices](#run-native-app-tests-on-sauce-labs-ios-real-devices-in-the-sauce-labs-platform)
+- [Web App on real iOS devices](#run-web-app-tests-on-sauce-labs-ios-real-devices-in-the-sauce-labs-platform)
 
 ## Important information
 ### Environment variables for Sauce Labs
@@ -23,8 +23,12 @@ Be aware of the fact that you need the build for the iOS real device. So please 
 ### Upload apps to Sauce Storage
 * If you want to use iOS real devices and Android real devices in the New Sauce Labs UI you need to upload the apps to the Sauce Storage.
 For more information on this step please visit: [Application Storage](https://wiki.saucelabs.com/display/DOCS/Application+Storage).
-* In the app capability you must use storage:<app-id>. For more information on this step please visit: [Using Application Storage with Automated Test Builds](https://wiki.saucelabs.com/display/DOCSDEV/Application+Storage#ApplicationStorage-UsingApplicationStoragewithAutomatedTestBuilds) section of [Application Storage](https://wiki.saucelabs.com/display/DOCS/Application+Storage)
-* Change the value of appID parameter in SwagLabsTest.java for Android and iOS according to your app-id.
+* In the app capability you must use storage:<app-id> or storage:filename=<file-name>. For more information on this step please visit: [Application Storage](https://wiki.saucelabs.com/display/DOCS/Application+Storage).
+* Change the value of appName in the native apps tests for Android and iOS according to your app name.
+### Useful Links 
+* How to upload the apps to the Sauce Storage and the app capability: [Application Storage](https://wiki.saucelabs.com/display/DOCS/Application+Storage).
+* The 
+
 ## Run Native App tests on Sauce Labs Android real devices in the Sauce Labs Platform
 If you want to run the Native Android App tests on Sauce Labs real Android devices then you can run the Android tests with
 

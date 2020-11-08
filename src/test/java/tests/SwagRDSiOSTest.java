@@ -40,6 +40,7 @@ public class SwagRDSiOSTest {
 
         String sauceUrl = "@ondemand.eu-central-1.saucelabs.com:443";
         String SAUCE_REMOTE_URL = "https://" + username + ":" + accesskey + sauceUrl +"/wd/hub";
+        String appName = "iOS.RealDevice.SauceLabs.Mobile.Sample.app.2.3.0.ipa";
 
         String methodName = method.getName();
         URL url = new URL(SAUCE_REMOTE_URL);
@@ -49,7 +50,7 @@ public class SwagRDSiOSTest {
 //        capabilities.setCapability("privateDevicesOnly", "true");
         capabilities.setCapability("platformName", "iOS");
         capabilities.setCapability("automationName", "XCuiTest");
-        capabilities.setCapability("app", "storage:filename=iOS.RealDevice.SauceLabs.Mobile.Sample.app.2.3.0.ipa");
+        capabilities.setCapability("app", "storage:filename="+appName);
         capabilities.setCapability("name", methodName);
         capabilities.setCapability("noReset", "true");
         capabilities.setCapability("cacheId", "1234");

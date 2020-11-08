@@ -50,6 +50,7 @@ public class SwagRDSAndroidTest {
 
         //String sauceUrl = "@ondemand.eu-central-1.saucelabs.com:443";
         String SAUCE_REMOTE_URL = "https://" + username + ":" + accesskey + sauceUrl +"/wd/hub";
+        String appName = "Android.SauceLabs.Mobile.Sample.app.2.3.0.apk";
 
         String methodName = method.getName();
         URL url = new URL(SAUCE_REMOTE_URL);
@@ -58,7 +59,7 @@ public class SwagRDSAndroidTest {
         capabilities.setCapability("deviceName", "Samsung.*");
         capabilities.setCapability("platformName", "Android");
         capabilities.setCapability("automationName", "UiAutomator2");
-        capabilities.setCapability("app", "storage:filename=Android.SauceLabs.Mobile.Sample.app.2.3.0.apk");
+        capabilities.setCapability("app", "storage:filename="+appName);
         capabilities.setCapability("name", methodName);
         capabilities.setCapability("appiumVersion", "1.17.0");
 
