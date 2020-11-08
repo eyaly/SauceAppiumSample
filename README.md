@@ -6,6 +6,7 @@ This project contains Java examples for running Appium tests on Sauce Labs platf
 - [Native iOS App on real devices](#run-native-app-tests-on-sauce-labs-ios-real-devices-in-the-sauce-labs-platform)
 - [Web App on real iOS devices](#run-web-app-tests-on-sauce-labs-ios-real-devices-in-the-sauce-labs-platform)
 
+The framework uses testNG xml file for parallel executions. All the tests in the same class will run in parallel on different devices 
 ## Important information
 ### Environment variables for Sauce Labs
 The examples in this repository that can run on Sauce Labs use environment variables, make sure you've added the following
