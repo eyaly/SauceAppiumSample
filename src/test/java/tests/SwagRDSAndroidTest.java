@@ -95,6 +95,17 @@ public class SwagRDSAndroidTest {
         // Verificsation
         Assert.assertTrue(isOnProductsPage());
     }
+
+    @Test
+    public void loginTestValidProblem() {
+        System.out.println("Sauce - Start loginTestValidProblem test");
+
+        login("problem_user", "secret_sauce");
+
+        // Verificsation
+        Assert.assertTrue(isOnProductsPage());
+    }
+
     public void login(String user, String pass){
         AndroidDriver driver = getAndroidDriver();
 
