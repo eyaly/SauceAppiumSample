@@ -1,8 +1,8 @@
 # Running Appium Tests on Sauce Labs platform
 This project contains Java examples for running Appium tests on Sauce Labs platform:
 
-- [Android Native App real devices on the new Sauce Labs UI](#run-tests-on-native-app-on-sauce-labs-android-real-devices-in-the-new-sauce-labs-ui)
-- [iOS Native App real devices on the new Sauce Labs UI](#run-tests-on-native-app-on-sauce-labs-ios-real-devices-in-the-new-sauce-labs-ui)
+- [Native Android App real devices on the new Sauce Labs UI](#run-native-app-tests-on-sauce-labs-android-real-devices-in-the-new-sauce-labs-ui)
+- [Native iOS App real devices on the new Sauce Labs UI](#run-native-app-tests-on-sauce-labs-ios-real-devices-in-the-new-sauce-labs-ui)
 
 ## Important information
 ### Environment variables for Sauce Labs
@@ -23,8 +23,8 @@ Be aware of the fact that you need the build for the iOS real device. So please 
 For more information on this step please visit: [Application Storage](https://wiki.saucelabs.com/display/DOCS/Application+Storage).
 * In the app capability you must use storage:<app-id>. For more information on this step please visit: [Using Application Storage with Automated Test Builds](https://wiki.saucelabs.com/display/DOCSDEV/Application+Storage#ApplicationStorage-UsingApplicationStoragewithAutomatedTestBuilds) section of [Application Storage](https://wiki.saucelabs.com/display/DOCS/Application+Storage)
 * Change the value of appID parameter in SwagLabsTest.java for Android and iOS according to your app-id.
-## Run tests on Native App on Sauce Labs Android real devices in the New Sauce Labs UI
-If you want to run the tests on Sauce Labs real devices in the **New Sauce Labs UI** then you can run the Android test with
+## Run Native App tests on Sauce Labs Android real devices in the New Sauce Labs UI
+If you want to run the Native Android App tests on Sauce Labs real devices in the **New Sauce Labs UI** then you can run the Android test with
 
     // If using the US DC
     mvn clean install -DtestngXmlFile=testng_appium_android.xml -Dregion=us
@@ -36,8 +36,8 @@ The tests will be executed on a Samsung Galaxy 10.
 
 > NOTE: Make sure you are in the folder `SauceAppiumSample` when you execute this command
 
-## Run tests on Native App on Sauce Labs iOS real devices in the New Sauce Labs UI
-If you want to run the tests on Sauce Labs real devices in the **New Sauce Labs UI** then you can run the iOS test with
+## Run Native App tests on Sauce Labs iOS real devices in the New Sauce Labs UI
+If you want to run the Native iOS App tests on Sauce Labs real devices in the **New Sauce Labs UI** then you can run the iOS test with
 
     // If using the US DC
     mvn clean install -DtestngXmlFile=testng_appium_ios.xml -Dregion=us
