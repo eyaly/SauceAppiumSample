@@ -1,4 +1,4 @@
-# Running Appium Tests on Sauce Labs platform
+# Running Appium Tests on Sauce Labs Platform
 This project contains Java examples for running Appium tests on Sauce Labs platform:
 
 - [Native Android App on real devices](#run-native-app-tests-on-sauce-labs-android-real-devices-in-the-sauce-labs-platform)
@@ -27,9 +27,9 @@ For more information on this step please visit: [Application Storage](https://wi
 * Change the value of appName in the native apps tests for Android and iOS according to your app name.
 ### Useful Links 
 * How to upload the apps to the Sauce Storage and the app capability: [Application Storage](https://wiki.saucelabs.com/display/DOCS/Application+Storage).
-* Appium Capabilities for Real Device Testing: [Appium Capabilities(https://wiki.saucelabs.com/display/DOCS/Appium+Capabilities+for+Real+Device+Testing).
-* Sauce Labs Data Center Endpoints: [Data Center EndPoints(https://wiki.saucelabs.com/display/DOCS/Data+Center+Endpoints).
-* How to set the pass/fail status of a test: [Annotating Tests with Selenium's JavaScript Executor(https://wiki.saucelabs.com/display/DOCS/Annotating+Tests+with+Selenium%27s+JavaScript+Executor).
+* Appium Capabilities for Real Device Testing: [Appium Capabilities](https://wiki.saucelabs.com/display/DOCS/Appium+Capabilities+for+Real+Device+Testing).
+* Sauce Labs Data Center Endpoints: [Data Center EndPoints](https://wiki.saucelabs.com/display/DOCS/Data+Center+Endpoints).
+* How to set the pass/fail status of a test: [Annotating Tests with Selenium's JavaScript Executor](https://wiki.saucelabs.com/display/DOCS/Annotating+Tests+with+Selenium%27s+JavaScript+Executor).
 ## Run Native App tests on Sauce Labs Android real devices in the Sauce Labs Platform
 If you want to run the Native Android App tests on Sauce Labs real Android devices then you can run the Android tests with
 
