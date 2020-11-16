@@ -1,17 +1,17 @@
 # Running Appium Tests on Sauce Labs Platform
-This project contains Java examples for running Appium tests on Sauce Labs platform:
-On Real Devices:
+This project contains Java examples for running Appium tests on Sauce Labs platform:  
+On Real Devices:  
 
 - [Native Android App on real devices](#run-native-app-tests-on-sauce-labs-android-real-devices-in-the-sauce-labs-platform)
 - [Web App on real Android devices](#run-web-app-tests-on-sauce-labs-android-real-devices-in-the-sauce-labs-platform)
 - [Native iOS App on real devices](#run-native-app-tests-on-sauce-labs-ios-real-devices-in-the-sauce-labs-platform)
 - [Web App on real iOS devices](#run-web-app-tests-on-sauce-labs-ios-real-devices-in-the-sauce-labs-platform)
 
-On Simulators and Emulators:
-- [Native Android App on Emulator](#run-native-app-tests-on-sauce-labs-android-emulators)
-- [Web App on Android Emulator](#run-web-app-tests-on-sauce-labs-android-emulators)
-- [Native iOS App on Simulator](#run-native-app-tests-on-sauce-labs-ios-simulators)
-- [Web App on iOS Simulator](#run-web-app-tests-on-sauce-labs-ios-simulators)
+On Simulators and Emulators:  
+- [Native Android App on Emulators](#run-native-app-tests-on-sauce-labs-android-emulators)
+- [Web App on Android Emulators](#run-web-app-tests-on-sauce-labs-android-emulators)
+- [Native iOS App on Simulators](#run-native-app-tests-on-sauce-labs-ios-simulators)
+- [Web App on iOS Simulators](#run-web-app-tests-on-sauce-labs-ios-simulators)
 
 The framework uses testNG xml file for parallel executions. All the tests in the same class will run in parallel on different devices 
 ## Important information
