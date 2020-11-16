@@ -1,16 +1,11 @@
-package tests;
+package tests.EmuSim;
 
 
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -24,7 +19,7 @@ import java.net.URL;
 import static tests.Config.region;
 
 
-public class SwagRDSAndroidWebTest {
+public class SwagEmuAndroidWebTest {
 
     private static ThreadLocal<AndroidDriver> androidDriver = new ThreadLocal<AndroidDriver>();
     private  ThreadLocal<String> sessionId = new ThreadLocal<>();
@@ -57,13 +52,12 @@ public class SwagRDSAndroidWebTest {
         URL url = new URL(SAUCE_REMOTE_URL);
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("deviceName", "Samsung.*");
+        capabilities.setCapability("deviceName", "Android Emulator");
+        capabilities.setCapability("platformVersion", "8.0");
         capabilities.setCapability("platformName", "Android");
         capabilities.setCapability("automationName", "UiAutomator2");
         capabilities.setCapability("browserName", "Chrome");
         capabilities.setCapability("name", methodName);
-        capabilities.setCapability("noReset", "true");
-        capabilities.setCapability("cacheId", "1234");
 
         androidDriver.set(new AndroidDriver(url, capabilities));
         String id = ((RemoteWebDriver) getAndroidDriver()).getSessionId().toString();
