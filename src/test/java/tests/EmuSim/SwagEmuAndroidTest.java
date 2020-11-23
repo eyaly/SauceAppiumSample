@@ -61,6 +61,7 @@ public class SwagEmuAndroidTest {
             capabilities.setCapability("platformVersion", "8.0");
             capabilities.setCapability("app", "storage:filename=" + appName);
             capabilities.setCapability("name", methodName);
+            capabilities.setCapability("appiumVersion", "1.18.1");
         } else {
             // Run on local Appium Server
             capabilities.setCapability("deviceName", "emulator-5554");
