@@ -35,8 +35,8 @@ public class SwagRDSAndroidWebTest {
     By productTitle = By.className("product_label");
 
 
-    @BeforeClass
-    public void setup() throws MalformedURLException {
+    @BeforeMethod
+    public void setup(Method method) throws MalformedURLException {
 
         System.out.println("Sauce Android Web - BeforeMethod hook");
         String username = System.getenv("SAUCE_USERNAME");
@@ -51,7 +51,7 @@ public class SwagRDSAndroidWebTest {
         //String sauceUrl = "@ondemand.eu-central-1.saucelabs.com:443";
         String SAUCE_REMOTE_URL = "https://" + username + ":" + accesskey + sauceUrl +"/wd/hub";
 
-        String methodName = "ey"; //method.getName();
+        String methodName = method.getName();
         URL url = new URL(SAUCE_REMOTE_URL);
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
