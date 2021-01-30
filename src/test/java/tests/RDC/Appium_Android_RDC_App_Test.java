@@ -26,13 +26,11 @@ import static tests.Config.region;
 public class Appium_Android_RDC_App_Test {
 
     private static ThreadLocal<AndroidDriver> androidDriver = new ThreadLocal<AndroidDriver>();
-    private  ThreadLocal<String> sessionId = new ThreadLocal<>();
 
     String usernameID = "test-Username";
     String passwordID = "test-Password";
     String submitButtonID = "test-LOGIN";
     By ProductTitle = By.xpath("//android.widget.TextView[@text='PRODUCTS']");
-
 
     @BeforeMethod
     public void setup(Method method) throws MalformedURLException {
@@ -66,10 +64,13 @@ public class Appium_Android_RDC_App_Test {
       //  capabilities.setCapability("noReset", "true");
       //  capabilities.setCapability("cacheId", "1234");
 
-        androidDriver.set(new AndroidDriver(url, capabilities));
+        try {
+            androidDriver.set(new AndroidDriver(url, capabilities));
+        } catch (Exception e) {
+            System.out.println("*** Problem to create the Android driver " + e.getMessage());
+            throw new RuntimeException(e);
+        }
 
-        String id = ((RemoteWebDriver) getAndroidDriver()).getSessionId().toString();
-        sessionId.set(id);
     }
 
     @AfterMethod

@@ -25,7 +25,6 @@ import java.util.Map;
 public class Appium_iOS_RDC_App_Test {
 
     private static ThreadLocal<IOSDriver> iosDriver = new ThreadLocal<IOSDriver>();
-    private  ThreadLocal<String> sessionId = new ThreadLocal<>();
 
     String usernameID = "test-Username";
     String passwordID = "test-Password";
@@ -57,9 +56,12 @@ public class Appium_iOS_RDC_App_Test {
         capabilities.setCapability("noReset", "true");
         capabilities.setCapability("cacheId", "1234");
 
-        iosDriver.set(new IOSDriver(url, capabilities));
-        String id = ((RemoteWebDriver) getiosDriver()).getSessionId().toString();
-        sessionId.set(id);
+        try {
+            iosDriver.set(new IOSDriver(url, capabilities));
+        } catch (Exception e) {
+            System.out.println("*** Problem to create the iOS driver " + e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
     @AfterMethod

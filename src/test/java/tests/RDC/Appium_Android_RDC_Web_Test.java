@@ -26,8 +26,6 @@ public class Appium_Android_RDC_Web_Test {
 
     private static ThreadLocal<AndroidDriver> androidDriver = new ThreadLocal<AndroidDriver>();
 
-    private  ThreadLocal<String> sessionId = new ThreadLocal<>();
-
     String url = "https://www.saucedemo.com/";
 
     By usernameInput = By.id("user-name");
@@ -64,9 +62,12 @@ public class Appium_Android_RDC_Web_Test {
         capabilities.setCapability("noReset", "true");
         capabilities.setCapability("cacheId", "1234");
 
-        androidDriver.set(new AndroidDriver(url, capabilities));
-        String id = ((RemoteWebDriver) getAndroidDriver()).getSessionId().toString();
-        sessionId.set(id);
+        try {
+            androidDriver.set(new AndroidDriver(url, capabilities));
+        } catch (Exception e) {
+            System.out.println("*** Problem to create the Android driver " + e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
     @AfterMethod

@@ -29,7 +29,6 @@ import static tests.Config.region;
 public class Appium_Android_EMU_App_Test {
 
     private static ThreadLocal<AndroidDriver> androidDriver = new ThreadLocal<AndroidDriver>();
-    private  ThreadLocal<String> sessionId = new ThreadLocal<>();
 
     String usernameID = "test-Username";
     String passwordID = "test-Password";
@@ -80,9 +79,6 @@ public class Appium_Android_EMU_App_Test {
             System.out.println("*** Problem to create the Android driver " + e.getMessage());
             throw new RuntimeException(e);
         }
-
-        String id = ((RemoteWebDriver) getAndroidDriver()).getSessionId().toString();
-        sessionId.set(id);
     }
 
     @AfterMethod

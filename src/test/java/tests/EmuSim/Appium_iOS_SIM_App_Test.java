@@ -1,6 +1,7 @@
 package tests.EmuSim;
 
 
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -49,7 +50,12 @@ public class Appium_iOS_SIM_App_Test {
         capabilities.setCapability("app", "storage:filename="+appName);
         capabilities.setCapability("name", methodName);
 
-        iosDriver.set(new IOSDriver(url, capabilities));
+        try {
+            iosDriver.set(new IOSDriver(url, capabilities));
+        } catch (Exception e) {
+            System.out.println("*** Problem to create the iOS driver " + e.getMessage());
+            throw new RuntimeException(e);
+        }
 
     }
 

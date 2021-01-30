@@ -23,7 +23,6 @@ import static tests.Config.region;
 public class Appium_Android_EMU_Web_Test {
 
     private static ThreadLocal<AndroidDriver> androidDriver = new ThreadLocal<AndroidDriver>();
-    private  ThreadLocal<String> sessionId = new ThreadLocal<>();
 
     String url = "https://www.saucedemo.com/";
 
@@ -60,9 +59,13 @@ public class Appium_Android_EMU_Web_Test {
         capabilities.setCapability("browserName", "Chrome");
         capabilities.setCapability("name", methodName);
 
-        androidDriver.set(new AndroidDriver(url, capabilities));
-        String id = ((RemoteWebDriver) getAndroidDriver()).getSessionId().toString();
-        sessionId.set(id);
+        try {
+            androidDriver.set(new AndroidDriver(url, capabilities));
+        } catch (Exception e) {
+            System.out.println("*** Problem to create the Android driver " + e.getMessage());
+            throw new RuntimeException(e);
+        }
+
     }
 
     @AfterMethod
