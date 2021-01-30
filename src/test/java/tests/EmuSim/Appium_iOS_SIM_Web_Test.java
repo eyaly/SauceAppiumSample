@@ -15,8 +15,9 @@ import org.testng.annotations.Test;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 
-public class SwagSimiOSWebTest {
+public class Appium_iOS_SIM_Web_Test {
 
     private static ThreadLocal<IOSDriver> iosDriver = new ThreadLocal<IOSDriver>();
     private  ThreadLocal<String> sessionId = new ThreadLocal<>();

@@ -2,6 +2,7 @@ package tests.RDC;
 
 
 import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.ios.IOSElement;
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -18,9 +19,10 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class SwagRDSiOSTest {
+public class Appium_iOS_RDC_App_Test {
 
     private static ThreadLocal<IOSDriver> iosDriver = new ThreadLocal<IOSDriver>();
     private  ThreadLocal<String> sessionId = new ThreadLocal<>();
@@ -84,9 +86,12 @@ public class SwagRDSiOSTest {
     public void login(String user, String pass){
         IOSDriver driver = getiosDriver();
 
-        WebElement usernameEdit = (WebElement) driver.findElementByAccessibilityId(usernameID);
-        usernameEdit.click();
-        usernameEdit.sendKeys(user);
+//        WebElement usernameEdit = (WebElement) driver.findElementByAccessibilityId(usernameID);
+        List<IOSElement> usernameEdit = (List<IOSElement>) driver.findElementsByAccessibilityId(usernameID);
+
+        usernameEdit.get(0).click();
+        usernameEdit.get(0).sendKeys(user);
+
 
         WebElement passwordEdit = (WebElement) driver.findElementByAccessibilityId(passwordID);
         passwordEdit.click();

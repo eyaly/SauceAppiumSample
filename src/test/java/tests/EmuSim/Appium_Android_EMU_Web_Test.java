@@ -1,28 +1,26 @@
-package tests.RDC;
+package tests.EmuSim;
 
 
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.ITestResult;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 
 import static tests.Config.region;
 
 
-public class SwagRDSAndroidWebTest {
+public class Appium_Android_EMU_Web_Test {
 
     private static ThreadLocal<AndroidDriver> androidDriver = new ThreadLocal<AndroidDriver>();
     private  ThreadLocal<String> sessionId = new ThreadLocal<>();
@@ -55,25 +53,23 @@ public class SwagRDSAndroidWebTest {
         URL url = new URL(SAUCE_REMOTE_URL);
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("deviceName", "Samsung.*");
+        capabilities.setCapability("deviceName", "Android Emulator");
+        capabilities.setCapability("platformVersion", "8.0");
         capabilities.setCapability("platformName", "Android");
         capabilities.setCapability("automationName", "UiAutomator2");
         capabilities.setCapability("browserName", "Chrome");
         capabilities.setCapability("name", methodName);
-        capabilities.setCapability("noReset", "true");
-        capabilities.setCapability("cacheId", "1234");
 
         androidDriver.set(new AndroidDriver(url, capabilities));
         String id = ((RemoteWebDriver) getAndroidDriver()).getSessionId().toString();
         sessionId.set(id);
     }
 
-    @AfterClass
-    public void teardown() {
-
+    @AfterMethod
+    public void teardown(ITestResult result) {
+        System.out.println("Sauce - AfterMethod hook");
         try {
-            System.out.println("Sauce - AfterMethod hook");
-        //    ((JavascriptExecutor) getAndroidDriver()).executeScript("sauce:job-result=" + (result.isSuccess() ? "passed" : "failed"));
+            ((JavascriptExecutor) getAndroidDriver()).executeScript("sauce:job-result=" + (result.isSuccess() ? "passed" : "failed"));
         } finally {
             System.out.println("Sauce - release driver");
             getAndroidDriver().quit();
@@ -93,17 +89,7 @@ public class SwagRDSAndroidWebTest {
 
         // Verificsation
         Assert.assertTrue(isOnProductsPage());
-    }
 
-    @Test
-    public void loginToSwagLabsWebTestValid2() {
-        System.out.println("Sauce - Start loginToSwagLabsTestValid test");
-        AndroidDriver driver = getAndroidDriver();
-        driver.get(url);
-        login("standard_user", "secret_sauce");
-
-        // Verificsation
-        Assert.assertTrue(isOnProductsPage());
     }
 
     public void login(String user, String pass){

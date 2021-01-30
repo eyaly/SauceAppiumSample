@@ -9,18 +9,16 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
-public class SwagSimiOSTest {
+public class Appium_iOS_SIM_App_Test {
 
     private static ThreadLocal<IOSDriver> iosDriver = new ThreadLocal<IOSDriver>();
-    private  ThreadLocal<String> sessionId = new ThreadLocal<>();
 
     String usernameID = "test-Username";
     String passwordID = "test-Password";
@@ -29,7 +27,7 @@ public class SwagSimiOSTest {
 
 
     @BeforeMethod
-    public void setup(Method method) throws MalformedURLException {
+       public void setup(Method method) throws MalformedURLException {
 
         System.out.println("Sauce iOS Native - BeforeMethod hook");
         String username = System.getenv("SAUCE_USERNAME");
@@ -52,14 +50,13 @@ public class SwagSimiOSTest {
         capabilities.setCapability("name", methodName);
 
         iosDriver.set(new IOSDriver(url, capabilities));
-        String id = ((RemoteWebDriver) getiosDriver()).getSessionId().toString();
-        sessionId.set(id);
+
     }
 
     @AfterMethod
-    public void teardown(ITestResult result) {
+     public void teardown(ITestResult result) {
         System.out.println("Sauce - AfterMethod hook");
-        ((JavascriptExecutor)getiosDriver()).executeScript("sauce:job-result=" + (result.isSuccess() ? "passed" : "failed"));
+      //  ((JavascriptExecutor)getiosDriver()).executeScript("sauce:job-result=" + (result.isSuccess() ? "passed" : "failed"));
         getiosDriver().quit();
     }
 
@@ -77,12 +74,24 @@ public class SwagSimiOSTest {
 
     }
 
+    @Test
+    public void loginToSwagLabsTestValid2() {
+        System.out.println("Sauce - Start loginToSwagLabsTestValid2 test");
+        login("standard_user", "secret_sauce");
+
+        // Verificsation
+        Assert.assertTrue(isOnProductsPage());
+
+    }
+
     public void login(String user, String pass){
         IOSDriver driver = getiosDriver();
 
         WebElement usernameEdit = (WebElement) driver.findElementByAccessibilityId(usernameID);
+
         usernameEdit.click();
         usernameEdit.sendKeys(user);
+
 
         WebElement passwordEdit = (WebElement) driver.findElementByAccessibilityId(passwordID);
         passwordEdit.click();

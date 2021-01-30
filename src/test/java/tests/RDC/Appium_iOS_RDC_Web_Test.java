@@ -1,9 +1,10 @@
-package tests.EmuSim;
+package tests.RDC;
 
 
-import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
@@ -16,12 +17,9 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static tests.Config.region;
+public class Appium_iOS_RDC_Web_Test {
 
-
-public class SwagEmuAndroidWebTest {
-
-    private static ThreadLocal<AndroidDriver> androidDriver = new ThreadLocal<AndroidDriver>();
+    private static ThreadLocal<IOSDriver> iosDriver = new ThreadLocal<IOSDriver>();
     private  ThreadLocal<String> sessionId = new ThreadLocal<>();
 
     String url = "https://www.saucedemo.com/";
@@ -35,63 +33,61 @@ public class SwagEmuAndroidWebTest {
     @BeforeMethod
     public void setup(Method method) throws MalformedURLException {
 
-        System.out.println("Sauce Android Web - BeforeMethod hook");
+        System.out.println("Sauce iOS Web - BeforeMethod hook");
         String username = System.getenv("SAUCE_USERNAME");
         String accesskey = System.getenv("SAUCE_ACCESS_KEY");
-        String sauceUrl;
-        if (region.equalsIgnoreCase("eu")) {
-            sauceUrl = "@ondemand.eu-central-1.saucelabs.com:443";
-        } else {
-            sauceUrl = "@ondemand.us-west-1.saucelabs.com:443";
-        }
 
-        //String sauceUrl = "@ondemand.eu-central-1.saucelabs.com:443";
+        String sauceUrl = "@ondemand.eu-central-1.saucelabs.com:443";
         String SAUCE_REMOTE_URL = "https://" + username + ":" + accesskey + sauceUrl +"/wd/hub";
 
         String methodName = method.getName();
         URL url = new URL(SAUCE_REMOTE_URL);
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("deviceName", "Android Emulator");
-        capabilities.setCapability("platformVersion", "8.0");
-        capabilities.setCapability("platformName", "Android");
-        capabilities.setCapability("automationName", "UiAutomator2");
-        capabilities.setCapability("browserName", "Chrome");
+        capabilities.setCapability("deviceName", "iPhone 8*");
+        capabilities.setCapability("platformName", "iOS");
+        capabilities.setCapability("automationName", "XCuiTest");
+        capabilities.setCapability("browserName", "Safari");
         capabilities.setCapability("name", methodName);
+        capabilities.setCapability("noReset", "true");
+        capabilities.setCapability("cacheId", "1234");
 
-        androidDriver.set(new AndroidDriver(url, capabilities));
-        String id = ((RemoteWebDriver) getAndroidDriver()).getSessionId().toString();
+        iosDriver.set(new IOSDriver(url, capabilities));
+        String id = ((RemoteWebDriver) getiosDriver()).getSessionId().toString();
         sessionId.set(id);
     }
 
     @AfterMethod
     public void teardown(ITestResult result) {
         System.out.println("Sauce - AfterMethod hook");
-        try {
-            ((JavascriptExecutor) getAndroidDriver()).executeScript("sauce:job-result=" + (result.isSuccess() ? "passed" : "failed"));
-        } finally {
-            System.out.println("Sauce - release driver");
-            getAndroidDriver().quit();
-        }
+        ((JavascriptExecutor)getiosDriver()).executeScript("sauce:job-result=" + (result.isSuccess() ? "passed" : "failed"));
+        getiosDriver().quit();
     }
 
-    public  AndroidDriver getAndroidDriver() {
-        return androidDriver.get();
+    public  IOSDriver getiosDriver() {
+        return iosDriver.get();
     }
 
     @Test
     public void loginToSwagLabsWebTestValid() {
-        System.out.println("Sauce - Start loginToSwagLabsTestValid test");
-        AndroidDriver driver = getAndroidDriver();
+        System.out.println("Sauce - Start loginToSwagLabsWebTestValid test");
+        IOSDriver driver = getiosDriver();
         driver.get(url);
+
         login("standard_user", "secret_sauce");
 
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         // Verificsation
         Assert.assertTrue(isOnProductsPage());
+
     }
 
     public void login(String user, String pass){
-        AndroidDriver driver = getAndroidDriver();
+        IOSDriver driver = getiosDriver();
 
         driver.findElement(usernameInput).sendKeys(user);
         driver.findElement(passwordInput).sendKeys(pass);
@@ -101,7 +97,7 @@ public class SwagEmuAndroidWebTest {
     }
 
     public boolean isOnProductsPage() {
-        AndroidDriver driver = getAndroidDriver();
+        IOSDriver driver = getiosDriver();
 
         return driver.findElement(productTitle).isDisplayed();
     }
