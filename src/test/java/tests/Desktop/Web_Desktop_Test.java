@@ -79,6 +79,16 @@ public class Web_Desktop_Test {
         driver.navigate().to("https://www.saucedemo.com");
         String getTitle = driver.getTitle();
         Assert.assertEquals(getTitle, "Swag Labs");
+    }
 
+    @Test
+    public void checkSwagLabsTitle2() {
+        System.out.println("Sauce - Start checkSwagLabsTitle2 test");
+        WebDriver driver = getDriver();
+
+
+        driver.navigate().to("https://www.saucedemo.com");
+        String getTitle = driver.getTitle();
+        Assert.assertEquals(getTitle, "Swag Labs");
     }
 }
