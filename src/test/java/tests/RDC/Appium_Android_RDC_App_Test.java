@@ -3,13 +3,11 @@ package tests.RDC;
 
 import io.appium.java_client.android.AndroidDriver;
 
-import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -20,7 +18,9 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static tests.Config.host;
 import static tests.Config.region;
+import static tests.helpers.Utils.waiting;
 
 
 public class Appium_Android_RDC_App_Test {
@@ -36,33 +36,46 @@ public class Appium_Android_RDC_App_Test {
     public void setup(Method method) throws MalformedURLException {
 
         System.out.println("Sauce Android Native - BeforeMethod hook");
-        String username = System.getenv("SAUCE_USERNAME");
-        String accesskey = System.getenv("SAUCE_ACCESS_KEY");
-        String sauceUrl;
-        if (region.equalsIgnoreCase("eu")) {
-            sauceUrl = "@ondemand.eu-central-1.saucelabs.com:443";
-        } else {
-            sauceUrl = "@ondemand.us-west-1.saucelabs.com:443";
-        }
-
-        //String sauceUrl = "@ondemand.eu-central-1.saucelabs.com:443";
-        String SAUCE_REMOTE_URL = "https://" + username + ":" + accesskey + sauceUrl +"/wd/hub";
-        String appName = "Android.SauceLabs.Mobile.Sample.app.2.3.0.apk";
-
-        String methodName = method.getName();
-        URL url = new URL(SAUCE_REMOTE_URL);
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("deviceName", "Samsung.*");
-        capabilities.setCapability("platformName", "Android");
-        capabilities.setCapability("automationName", "UiAutomator2");
-        capabilities.setCapability("app", "storage:filename="+appName);
-        capabilities.setCapability("name", methodName);
-        capabilities.setCapability("orientation", "PORTRAIT");
+        String methodName = method.getName();
+        String appName = "Android.SauceLabs.Mobile.Sample.app.2.7.1.apk";
+        URL url;
+
+        if (host.equals("saucelabs")) {
+            String username = System.getenv("SAUCE_USERNAME");
+            String accesskey = System.getenv("SAUCE_ACCESS_KEY");
+            String sauceUrl;
+            if (region.equalsIgnoreCase("eu")) {
+                sauceUrl = "@ondemand.eu-central-1.saucelabs.com:443";
+            } else {
+                sauceUrl = "@ondemand.us-west-1.saucelabs.com:443";
+            }
+
+            String SAUCE_REMOTE_URL = "https://" + username + ":" + accesskey + sauceUrl + "/wd/hub";
+            url = new URL(SAUCE_REMOTE_URL);
+
+            capabilities.setCapability("deviceName", "Samsung.*");
+            capabilities.setCapability("app", "storage:filename=" + appName);
+            capabilities.setCapability("name", methodName);
 //        capabilities.setCapability("appiumVersion", "1.17.0");
 
-      //  capabilities.setCapability("noReset", "true");
-      //  capabilities.setCapability("cacheId", "1234");
+              capabilities.setCapability("noReset", true);
+              capabilities.setCapability("cacheId", "1234");
+        }
+        else{
+            // Run on local Appium Server
+            capabilities.setCapability("deviceName", "2271469230027ece");
+            capabilities.setCapability("app", "/Users/eyalyovel/Documents/sauce/demo/apps/android/" + appName);
+            capabilities.setCapability("noReset", false);
+            url = new URL("http://localhost:4723/wd/hub");
+        }
+
+        capabilities.setCapability("platformName", "Android");
+        capabilities.setCapability("automationName", "UiAutomator2");
+        capabilities.setCapability("orientation", "PORTRAIT");
+        capabilities.setCapability("appWaitActivity", ".MainActivity");
+
 
         try {
             androidDriver.set(new AndroidDriver(url, capabilities));
@@ -71,13 +84,16 @@ public class Appium_Android_RDC_App_Test {
             throw new RuntimeException(e);
         }
 
+        waiting(5);
     }
 
     @AfterMethod
     public void teardown(ITestResult result) {
         System.out.println("Sauce - AfterMethod hook");
         try {
-            ((JavascriptExecutor) getAndroidDriver()).executeScript("sauce:job-result=" + (result.isSuccess() ? "passed" : "failed"));
+            if (host.equals("saucelabs")) {
+                ((JavascriptExecutor) getAndroidDriver()).executeScript("sauce:job-result=" + (result.isSuccess() ? "passed" : "failed"));
+            }
         } finally {
             System.out.println("Sauce - release driver");
             getAndroidDriver().quit();
