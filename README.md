@@ -142,7 +142,7 @@ If you want to run the Web App tests on Sauce Labs iOS Simulator devices then yo
 The tests will be executed on a iPhone 8 Simulator.
 > NOTE: Make sure you are in the folder `SauceAppiumSample` when you execute this command
 
-##run browser on Sauce virtual machine
+## Run Browser On Sauce Virtual Machine
 If you want to run the Web App tests on Sauce Labs VM then you can run the web tests with
 
     // If using the US DC
