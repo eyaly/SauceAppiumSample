@@ -4,8 +4,8 @@ package tests.EmuSim;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -15,7 +15,6 @@ import org.testng.annotations.Test;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
 
 import static tests.Config.region;
 
@@ -51,16 +50,18 @@ public class Appium_Android_EMU_Web_Test {
         String methodName = method.getName();
         URL url = new URL(SAUCE_REMOTE_URL);
 
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("deviceName", "Android Emulator");
-        capabilities.setCapability("platformVersion", "8.0");
-        capabilities.setCapability("platformName", "Android");
-        capabilities.setCapability("automationName", "UiAutomator2");
-        capabilities.setCapability("browserName", "Chrome");
-        capabilities.setCapability("name", methodName);
-
+        ChromeOptions chromeOptions = new ChromeOptions();
+        //DesiredCapabilities capabilities = new DesiredCapabilities();
+        chromeOptions.setCapability("deviceName", "Google Pixel 3 XL GoogleAPI Emulator");
+        chromeOptions.setCapability("platformVersion", "11.0");
+        chromeOptions.setCapability("platformName", "Android");
+        chromeOptions.setCapability("automationName", "UiAutomator2");
+        chromeOptions.setCapability("browserName", "Chrome");
+        chromeOptions.setCapability("name", methodName);
+//        chromeOptions.setCapability("w3c", false);
+        chromeOptions.setExperimentalOption("w3c", false);
         try {
-            androidDriver.set(new AndroidDriver(url, capabilities));
+            androidDriver.set(new AndroidDriver(url, chromeOptions));
         } catch (Exception e) {
             System.out.println("*** Problem to create the Android driver " + e.getMessage());
             throw new RuntimeException(e);

@@ -7,9 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -41,7 +39,7 @@ public class Appium_Android_EMU_App_Test {
         System.out.println("Sauce Android Native - BeforeMethod hook");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         String methodName = method.getName();
-        String appName = "Android.SauceLabs.Mobile.Sample.app.2.3.0.apk";
+        String appName = "Android.SauceLabs.Mobile.Sample.app.2.7.1.apk";
         URL url;
 
         if (host.equals("saucelabs")) {
@@ -72,6 +70,8 @@ public class Appium_Android_EMU_App_Test {
         //        capabilities.setCapability("appWaitActivity", "com.swaglabsmobileapp.MainActivity");
         capabilities.setCapability("platformName", "Android");
         capabilities.setCapability("automationName", "UiAutomator2");
+        // package: com.swaglabsmobileapp
+        // Activity .MainActivity
 
         try {
             androidDriver.set(new AndroidDriver(url, capabilities));

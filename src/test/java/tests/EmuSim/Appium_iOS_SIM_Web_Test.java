@@ -88,6 +88,24 @@ public class Appium_iOS_SIM_Web_Test {
 
     }
 
+    @Test
+    public void loginToSwagLabsWebTestValid2() {
+        System.out.println("Sauce - Start loginToSwagLabsWebTestValid test");
+        IOSDriver driver = getiosDriver();
+        driver.get(url);
+
+        login("standard_user", "secret_sauce");
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        // Verificsation
+        Assert.assertTrue(isOnProductsPage());
+
+    }
+
     public void login(String user, String pass){
         IOSDriver driver = getiosDriver();
 
