@@ -1,6 +1,7 @@
 package tests.RDC;
 
 
+import io.appium.java_client.Setting;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
 import org.openqa.selenium.*;
@@ -41,7 +42,7 @@ public class Appium_iOS_RDC_App_Test {
 
         String sauceUrl = "@ondemand.eu-central-1.saucelabs.com:443";
         String SAUCE_REMOTE_URL = "https://" + username + ":" + accesskey + sauceUrl +"/wd/hub";
-        String appName = "iOS.RealDevice.SauceLabs.Mobile.Sample.app.2.3.0.ipa";
+        String appName = "iOS.RealDevice.SauceLabs.Mobile.Sample.app.2.7.1.ipa";
 
         String methodName = method.getName();
         URL url = new URL(SAUCE_REMOTE_URL);
@@ -53,9 +54,10 @@ public class Appium_iOS_RDC_App_Test {
         capabilities.setCapability("automationName", "XCuiTest");
         capabilities.setCapability("app", "storage:filename="+appName);
         capabilities.setCapability("name", methodName);
-        capabilities.setCapability("noReset", "true");
+        capabilities.setCapability("noReset", true);
         capabilities.setCapability("cacheId", "1234");
-
+        capabilities.setCapability("tags", "sauceDemo1");
+        capabilities.setCapability("build", "myBuild1");
         try {
             iosDriver.set(new IOSDriver(url, capabilities));
         } catch (Exception e) {
@@ -77,6 +79,16 @@ public class Appium_iOS_RDC_App_Test {
 
     @Test
     public void loginToSwagLabsTestValid() {
+        System.out.println("Sauce - Start loginToSwagLabsTestValid test");
+        login("standard_user", "secret_sauce");
+
+        // Verificsation
+        Assert.assertTrue(isOnProductsPage());
+
+    }
+
+    @Test
+    public void loginToSwagLabsTestValid2() {
         System.out.println("Sauce - Start loginToSwagLabsTestValid test");
         login("standard_user", "secret_sauce");
 

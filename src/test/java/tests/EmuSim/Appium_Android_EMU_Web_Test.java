@@ -58,7 +58,6 @@ public class Appium_Android_EMU_Web_Test {
         chromeOptions.setCapability("automationName", "UiAutomator2");
         chromeOptions.setCapability("browserName", "Chrome");
         chromeOptions.setCapability("name", methodName);
-//        chromeOptions.setCapability("w3c", false);
         chromeOptions.setExperimentalOption("w3c", false);
         try {
             androidDriver.set(new AndroidDriver(url, chromeOptions));

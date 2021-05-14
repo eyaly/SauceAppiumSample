@@ -17,6 +17,9 @@ import org.testng.annotations.*;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 import static tests.Config.host;
 import static tests.Config.region;
@@ -31,6 +34,12 @@ public class Appium_Android_RDC_App_Test {
     String passwordID = "test-Password";
     String submitButtonID = "test-LOGIN";
     By ProductTitle = By.xpath("//android.widget.TextView[@text='PRODUCTS']");
+    String testMenu = "test-Menu";
+    String testWebViewItem = "test-WEBVIEW";
+
+    String urlEdit = "test-enter a https url here...";
+    String goToSiteBtn = "test-GO TO SITE";
+    By usernameInputWeb = By.id("user-name");
 
     @BeforeMethod
     public void setup(Method method) throws MalformedURLException {
@@ -52,6 +61,7 @@ public class Appium_Android_RDC_App_Test {
                 sauceUrl = "@ondemand.us-west-1.saucelabs.com:443";
             }
 
+            // https://" + username + ":" + accesskey@ondemand.eu-central-1.saucelabs.com:443/wd/hub
             String SAUCE_REMOTE_URL = "https://" + username + ":" + accesskey + sauceUrl + "/wd/hub";
             url = new URL(SAUCE_REMOTE_URL);
 
@@ -62,6 +72,10 @@ public class Appium_Android_RDC_App_Test {
 
               capabilities.setCapability("noReset", true);
               capabilities.setCapability("cacheId", "1234");
+            List<String> tags = Arrays.asList("sauceDemo", "demoTest", "Android", "javaTest");
+            capabilities.setCapability("tags", tags);
+            capabilities.setCapability("build", "myBuild1");
+
         }
         else{
             // Run on local Appium Server
@@ -122,6 +136,62 @@ public class Appium_Android_RDC_App_Test {
 
         // Verificsation
         Assert.assertTrue(isOnProductsPage());
+    }
+
+    @Test
+    public void webViewTest() {
+        AndroidDriver driver = getAndroidDriver();
+        System.out.println("Sauce - Start webViewTest test");
+
+        login("standard_user", "secret_sauce");
+
+        // Verificsation
+        Assert.assertTrue(isOnProductsPage());
+
+        WebElement menu = (WebElement) driver.findElementByAccessibilityId(testMenu);
+        menu.click();
+
+        WebElement webViewItem = (WebElement) driver.findElementByAccessibilityId(testWebViewItem);
+        webViewItem.click();
+
+        // set web url
+        WebElement editURL = (WebElement) driver.findElementByAccessibilityId(urlEdit);
+        editURL.click();
+        editURL.sendKeys("https://www.saucedemo.com");
+
+        WebElement goTo = (WebElement) driver.findElementByAccessibilityId(goToSiteBtn);
+        goTo.click();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // in the webview page
+        String currentContext = driver.getContext();
+        System.out.println("*** current Context: " + currentContext);
+        Set<String> contextNames = driver.getContextHandles();
+
+        // print all contexts
+        for (String contextName : contextNames) {
+            System.out.println(contextName); //prints out something like NATIVE_APP \n WEBVIEW_1
+        }
+
+        driver.context(contextNames.toArray()[1].toString()); // set context to WEBVIEW
+        System.out.println("*** current Context: " + driver.getContext());
+
+        driver.findElementByCssSelector("#user-name").sendKeys("sauce_standard");
+        // ... Need to add the webView test
+
+        // Back to native app context
+        driver.context("NATIVE_APP");
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void login(String user, String pass){

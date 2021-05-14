@@ -19,6 +19,8 @@ import org.testng.annotations.Test;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 
 import static tests.Config.host;
 import static tests.Config.region;
@@ -70,6 +72,9 @@ public class Appium_Android_EMU_App_Test {
         //        capabilities.setCapability("appWaitActivity", "com.swaglabsmobileapp.MainActivity");
         capabilities.setCapability("platformName", "Android");
         capabilities.setCapability("automationName", "UiAutomator2");
+
+        List<String> tags = Arrays.asList("sauceDemo", "demoTest", "Android", "javaTest");
+        capabilities.setCapability("tags", tags);
         // package: com.swaglabsmobileapp
         // Activity .MainActivity
 
