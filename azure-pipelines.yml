@@ -1,0 +1,35 @@
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: CmdLine@2
+  inputs:
+    script: |
+      curl https://saucelabs.com/downloads/sc-4.6.5-linux.tar.gz | tar -xz
+      
+      chmod 777 -R ./sc-4.6.2-linux
+      
+      PATH=./sc-4.6.5-linux/bin:$PATH
+      
+      sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY  -x "https://eu-central-1.saucelabs.com/rest/v1" -i "rdc-on-sauce-tunnel-eu" -v -s &
+  displayName: 'install and start sauce tunnel'
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    goals: 'clean install'
+    options: '-Dbuild=$(Build.DefinitionName):$(Build.BuildId) -Dregion=eu -DtestngXmlFile=web_desktop_test.xml'
+  displayName: 'run suite on Sauce desktop'
