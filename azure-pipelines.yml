@@ -19,4 +19,5 @@ steps:
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+    goals: 'clean install'
+    options: '-Dbuild=$(Build.DefinitionName):$(Build.BuildId) -Dregion=eu -DtestngXmlFile=web_desktop_test.xml'
