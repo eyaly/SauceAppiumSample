@@ -19,7 +19,7 @@ steps:
       
       PATH=./sc-4.6.5-linux/bin:$PATH
       
-      sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY  -x "https://eu-central-1.saucelabs.com/rest/v1" -i "rdc-on-sauce-tunnel-eu" -v -s &
+      sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY  -x "https://eu-central-1.saucelabs.com/rest/v1" -i "sauce-tunnel-eu" -v -s &
   displayName: 'install and start sauce tunnel'
 - task: Maven@3
   inputs:
@@ -31,5 +31,5 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'clean install'
-    options: '-Dbuild=$(Build.DefinitionName):$(Build.BuildId) -Dregion=eu -DtestngXmlFile=web_desktop_test.xml'
+    options: '-Dbuild=$(Build.DefinitionName):$(Build.BuildId) -Dregion=eu -DtestngXmlFile=web_local_desktop_test.xml'
   displayName: 'run suite on Sauce desktop'
