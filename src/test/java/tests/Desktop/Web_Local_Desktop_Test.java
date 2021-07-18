@@ -48,7 +48,7 @@ public class Web_Local_Desktop_Test {
 
         MutableCapabilities sauceOptions = new MutableCapabilities();
         sauceOptions.setCapability("name", methodName);
-        sauceOptions.setCapability("tunnelIdentifier", "web_local_desktop_test");
+        sauceOptions.setCapability("tunnelIdentifier", "sauce-tunnel-eu");
         sauceOptions.setCapability("build", "build-test-5");
         List<String> tags = Arrays.asList("sauceLocalDemo", "Web", "javaTest");
         sauceOptions.setCapability("tags", tags);
@@ -76,8 +76,8 @@ public class Web_Local_Desktop_Test {
     }
 
     @Test
-    public void checkSwagLabsTitle() {
-        System.out.println("Sauce - Start checkSwagLabsTitle test");
+    public void checkLocalSwagLabsTitle() {
+        System.out.println("Sauce - Start checkLocalSwagLabsTitle test");
         WebDriver driver = getDriver();
 
 
