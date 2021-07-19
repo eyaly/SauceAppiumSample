@@ -81,7 +81,7 @@ public class Web_Local_Desktop_Test {
         WebDriver driver = getDriver();
 
 
-        driver.navigate().to("http://eyalhost:3000/");
+        driver.navigate().to("https://www.saucedemo.com");
         String getTitle = driver.getTitle();
         Assert.assertEquals(getTitle, "Swag Labs");
     }
