@@ -45,7 +45,9 @@ steps:
       echo "before"
       ps aux $(ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }')
       echo "after"
+      echo "**** kill ****"
       kill -SIGINT $(ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }')
+      echo "**** after kill ***"
       echo "before 2"
       ps aux 
       echo "after 2"
