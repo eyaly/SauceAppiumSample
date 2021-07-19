@@ -57,7 +57,7 @@ public class Web_Local_Desktop_Test {
 
         driver.set(new RemoteWebDriver(url, capabilities));
 
-        System.out.println("Sauce - tunnel name " + System.getenv("tunnelName");
+        System.out.println("Sauce - tunnel name " + System.getenv("tunnelName"));
 
     }
 
