@@ -44,5 +44,6 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
+      ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }'
       kill -SIGINT $(ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }')
   displayName: 'kill tunnel'
