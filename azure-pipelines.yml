@@ -40,3 +40,14 @@ steps:
       --request GET 'https://api.eu-central-1.saucelabs.com/rest/v1/eyalyovel/tunnels' \
       --header 'Content-Type: application/json' \
   displayName: 'get list of running tunnels'
+
+- task: CmdLine@2
+  inputs:
+    script: |
+      'ps aux | grep sauce-tunnel-eu | grep -v grep | awk ''{ print $2 }'')'
+  displayName: 'kill tunnel'
+- task: CmdLine@2
+  inputs:
+    script: |
+      'kill -SIGINT $(ps aux | grep sauce-tunnel-eu | grep -v grep | awk ''{ print $2 }'')'
+  displayName: 'kill tunnel 2'
