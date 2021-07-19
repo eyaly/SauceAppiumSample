@@ -9,6 +9,10 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+ - name: tunnelName
+   value: sauce-tunnel-eu
+
 steps:
 - task: CmdLine@2
   inputs:
