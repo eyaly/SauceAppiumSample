@@ -48,16 +48,14 @@ public class Web_Local_Desktop_Test {
 
         MutableCapabilities sauceOptions = new MutableCapabilities();
         sauceOptions.setCapability("name", methodName);
-        sauceOptions.setCapability("tunnelIdentifier", "sauce-tunnel-eu");
-        sauceOptions.setCapability("build", "build-test-5");
+        sauceOptions.setCapability("tunnelIdentifier", System.getenv("TUNNEL_NAME"));
+        sauceOptions.setCapability("build", System.getenv("BUILD_NAME"));
         List<String> tags = Arrays.asList("sauceLocalDemo", "Web", "javaTest");
         sauceOptions.setCapability("tags", tags);
 
         capabilities.setCapability("sauce:options", sauceOptions);
 
         driver.set(new RemoteWebDriver(url, capabilities));
-
-        System.out.println("Sauce - tunnel name " + System.getenv("TUNNEL_NAME"));
 
     }
 
