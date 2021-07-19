@@ -9,6 +9,8 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  TUNNEL_NAME: 'maya'
 steps:
 - task: CmdLine@2
   inputs:
@@ -42,4 +44,4 @@ steps:
       sleep 5
   displayName: 'kill tunnel'
   env:
-    TUNNEL_NAME: maya
+    TUNNEL_NAME: 'maya'
