@@ -20,6 +20,8 @@ steps:
       PATH=./sc-4.6.5-linux/bin:$PATH
       
       sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY  -x "https://eu-central-1.saucelabs.com/rest/v1" -i "sauce-tunnel-eu" -v -s &
+      ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }'
+      echo "ee"
   displayName: 'install and start sauce tunnel'
 - task: Maven@3
   inputs:
@@ -33,13 +35,6 @@ steps:
     goals: 'clean install'
     options: '-Dbuild=$(Build.DefinitionName):$(Build.BuildId) -Dregion=eu -DtestngXmlFile=web_desktop_test.xml'
   displayName: 'run suite on Sauce desktop'
-- task: CmdLine@2
-  inputs:
-    script: |
-      curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location \
-      --request GET 'https://api.eu-central-1.saucelabs.com/rest/v1/eyalyovel/tunnels' \
-      --header 'Content-Type: application/json' \
-  displayName: 'get list of running tunnels'
 
 - task: CmdLine@2
   inputs:
