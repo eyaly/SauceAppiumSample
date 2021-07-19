@@ -10,7 +10,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  TUNNEL_NAME: 'maya'
+  TUNNEL_NAME: 'sauce-tunnel-eu'
 steps:
 - task: CmdLine@2
   inputs:
@@ -18,7 +18,7 @@ steps:
       curl https://saucelabs.com/downloads/sc-4.6.5-linux.tar.gz | tar -xz
       chmod 777 -R ./sc-4.6.2-linux      
       PATH=./sc-4.6.5-linux/bin:$PATH
-      sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY  -x "https://eu-central-1.saucelabs.com/rest/v1" -i "sauce-tunnel-eu" -v -s &
+      sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY  -x "https://eu-central-1.saucelabs.com/rest/v1" -i $TUNNEL_NAME -v -s &
       echo "start"
       echo $(TUNNEL_NAME)
       echo "end"
