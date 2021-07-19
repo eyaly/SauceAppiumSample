@@ -43,5 +43,3 @@ steps:
       echo "** sleep 5 **"
       sleep 5
   displayName: 'kill tunnel'
-  env:
-    TUNNEL_NAME: 'maya'
