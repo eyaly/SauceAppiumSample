@@ -20,8 +20,9 @@ steps:
       PATH=./sc-4.6.5-linux/bin:$PATH
       
       sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY  -x "https://eu-central-1.saucelabs.com/rest/v1" -i "sauce-tunnel-eu" -v -s &
+      echo "before"
       ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }'
-      echo "ee"
+      echo "after"
   displayName: 'install and start sauce tunnel'
 - task: Maven@3
   inputs:
@@ -40,5 +41,11 @@ steps:
   inputs:
     script: |
       ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }'
+      echo "before"
+      ps aux $(ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }')
+      echo "after"
       kill -SIGINT $(ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }')
+      echo "before 2"
+      ps aux $(ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }')
+      echo "after 2"
   displayName: 'kill tunnel'
