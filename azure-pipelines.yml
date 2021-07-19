@@ -20,7 +20,7 @@ steps:
       curl https://saucelabs.com/downloads/sc-4.6.5-linux.tar.gz | tar -xz
       chmod 777 -R ./sc-4.6.2-linux      
       PATH=./sc-4.6.5-linux/bin:$PATH
-
+      SET $TUNNEL_NAME=Maya
       sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY  -x "https://eu-central-1.saucelabs.com/rest/v1" -i "sauce-tunnel-eu" -v -s &
       echo "start"
       echo $(tunnelName)
