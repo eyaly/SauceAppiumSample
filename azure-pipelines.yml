@@ -14,16 +14,10 @@ steps:
   inputs:
     script: |
       curl https://saucelabs.com/downloads/sc-4.6.5-linux.tar.gz | tar -xz
-      
-      chmod 777 -R ./sc-4.6.2-linux
-      
+      chmod 777 -R ./sc-4.6.2-linux      
       PATH=./sc-4.6.5-linux/bin:$PATH
-      ps aux
+
       sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY  -x "https://eu-central-1.saucelabs.com/rest/v1" -i "sauce-tunnel-eu" -v -s &
-      echo "before"
-      ps aux
-      ps aux $(ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }')
-      echo "after"
   displayName: 'install and start sauce tunnel'
 - task: Maven@3
   inputs:
@@ -41,15 +35,7 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
-      echo "get tunnel process id"
-      ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }'
-      echo "details about the tunnel process"
-      ps aux $(ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }')
-      echo "**** kill ****"
       kill -SIGINT $(ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }')
-      echo "** slepp **"
-      sleep 10
-      echo "get all process"
-      ps aux 
-      echo "*** end"
+      echo "** sleep 5 **"
+      sleep 5
   displayName: 'kill tunnel'
