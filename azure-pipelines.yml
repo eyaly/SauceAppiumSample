@@ -18,10 +18,10 @@ steps:
       chmod 777 -R ./sc-4.6.2-linux
       
       PATH=./sc-4.6.5-linux/bin:$PATH
-      
+      ps aux
       sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY  -x "https://eu-central-1.saucelabs.com/rest/v1" -i "sauce-tunnel-eu" -v -s &
       echo "before"
-      ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }'
+      ps aux
       ps aux $(ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }')
       echo "after"
   displayName: 'install and start sauce tunnel'
@@ -47,6 +47,6 @@ steps:
       echo "after"
       kill -SIGINT $(ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }')
       echo "before 2"
-      ps aux $(ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }')
+      ps aux 
       echo "after 2"
   displayName: 'kill tunnel'
