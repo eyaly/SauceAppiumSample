@@ -41,14 +41,15 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
+      echo "get tunnel process id"
       ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }'
-      echo "before"
+      echo "details about the tunnel process"
       ps aux $(ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }')
-      echo "after"
       echo "**** kill ****"
       kill -SIGINT $(ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }')
-      echo "**** after kill ***"
-      echo "before 2"
+      echo "** slepp **"
+      sleep 10
+      echo "get all process"
       ps aux 
-      echo "after 2"
+      echo "*** end"
   displayName: 'kill tunnel'
