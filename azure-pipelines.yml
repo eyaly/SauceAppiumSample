@@ -45,4 +45,4 @@ steps:
   inputs:
     script: |
       'kill -SIGINT $(ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }')'
-  displayName: 'kill tunnel 2'
+  displayName: 'kill tunnel'
