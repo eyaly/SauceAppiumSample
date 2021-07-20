@@ -12,6 +12,8 @@ pool:
 variables:
   TUNNEL_NAME: 'sauce-tunnel-eu'
   BUILD_NAME: $(Build.DefinitionName):$(Build.BuildId)
+  SAUCE_USERNAME: $(sauceUsername)
+  SAUCE_ACCESS_KEY: $(sauceAccessKey)
 steps:
 - task: CmdLine@2
   inputs:
@@ -36,6 +38,9 @@ steps:
     goals: 'clean install'
     options: '-Dbuild=$(Build.DefinitionName):$(Build.BuildId) -Dregion=eu -DtestngXmlFile=web_local_desktop_test.xml'
   displayName: 'run suite on Sauce desktop'
+  env:
+    SAUCE_USERNAME: $(sauceUsername)
+    SAUCE_ACCESS_KEY: $(sauceAccessKey)
 
 - task: CmdLine@2
   inputs:
@@ -44,7 +49,3 @@ steps:
       echo "** sleep 5 **"
       sleep 5
   displayName: 'kill tunnel'
-
-env:
-  SAUCE_USERNAME: $(sauceUsername)
-  SAUCE_ACCESS_KEY: $(sauceKey)
