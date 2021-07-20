@@ -11,6 +11,7 @@ pool:
 
 variables:
   TUNNEL_NAME: 'sauce-tunnel-eu'
+  BUILD_NAME: $(Build.DefinitionName):$(Build.BuildId)
 steps:
 - task: CmdLine@2
   inputs:
@@ -42,4 +43,5 @@ steps:
       kill -SIGINT $(ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }')
       echo "** sleep 5 **"
       sleep 5
+      echo $(TUNNEL_NAME)
   displayName: 'kill tunnel'
