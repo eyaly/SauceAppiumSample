@@ -36,7 +36,7 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'clean install'
-    options:  -Dregion=eu -DtestngXmlFile=web_local_desktop_test.xml'
+    options:  '-Dregion=eu -DtestngXmlFile=web_local_desktop_test.xml'
   displayName: 'run suite on Sauce desktop'
   env:
     SAUCE_USERNAME: $(sauceUsername)
