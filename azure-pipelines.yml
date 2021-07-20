@@ -12,8 +12,6 @@ pool:
 variables:
   TUNNEL_NAME: 'sauce-tunnel-eu'
   BUILD_NAME: $(Build.DefinitionName):$(Build.BuildId)
-  SAUCE_USERNAME: $(sauceUsername)
-  SAUCE_ACCESS_KEY: $(sauceAccessKey)
 steps:
 - task: CmdLine@2
   inputs:
