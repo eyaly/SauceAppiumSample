@@ -44,6 +44,7 @@ steps:
       echo "** sleep 5 **"
       sleep 5
   displayName: 'kill tunnel'
-  env:
-    SAUCE_USERNAME: $(sauceUsername)
-    SAUCE_ACCESS_KEY: $(sauceKey)
+
+env:
+  SAUCE_USERNAME: $(sauceUsername)
+  SAUCE_ACCESS_KEY: $(sauceKey)
