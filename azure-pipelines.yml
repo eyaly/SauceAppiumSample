@@ -23,6 +23,9 @@ steps:
       PATH=./sc-4.6.5-linux/bin:$PATH
       sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY  -x "https://eu-central-1.saucelabs.com/rest/v1" -i $TUNNEL_NAME -v -s &
   displayName: 'install and start sauce tunnel'
+  env:
+    SAUCE_USERNAME: $(sauceUsername)
+    SAUCE_ACCESS_KEY: $(sauceAccessKey)
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
