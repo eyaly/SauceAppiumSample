@@ -11,11 +11,13 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static tests.Config.region;
 
@@ -27,6 +29,7 @@ public class Web_Local_Desktop_Test {
     @BeforeMethod
     public void setup(Method method) throws MalformedURLException {
         System.out.println("Sauce Desktop - BeforeMethod hook");
+
         String methodName = method.getName();
         URL url;
 
@@ -56,7 +59,6 @@ public class Web_Local_Desktop_Test {
         capabilities.setCapability("sauce:options", sauceOptions);
 
         driver.set(new RemoteWebDriver(url, capabilities));
-
     }
 
     @AfterMethod
@@ -66,6 +68,10 @@ public class Web_Local_Desktop_Test {
             ((JavascriptExecutor) getDriver()).executeScript("sauce:job-result=" +
                     (result.isSuccess() ? "passed" : "failed"));
         } finally {
+
+            setEnv("TUNNEL_NAME", "eyal");
+            System.out.println("Sauce - new name is " + System.getenv("TUNNEL_NAME"));
+            
             System.out.println("Sauce - release driver");
             getDriver().quit();
         }
@@ -84,5 +90,18 @@ public class Web_Local_Desktop_Test {
         driver.navigate().to("https://www.saucedemo.com");
         String getTitle = driver.getTitle();
         Assert.assertEquals(getTitle, "Swag Labs");
+    }
+
+    public static void setEnv(String key, String value) {
+        try {
+            Map<String, String> env = System.getenv();
+            Class<?> cl = env.getClass();
+            Field field = cl.getDeclaredField("m");
+            field.setAccessible(true);
+            Map<String, String> writableEnv = (Map<String, String>) field.get(env);
+            writableEnv.put(key, value);
+        } catch (Exception e) {
+            throw new IllegalStateException("Failed to set environment variable", e);
+        }
     }
 }
