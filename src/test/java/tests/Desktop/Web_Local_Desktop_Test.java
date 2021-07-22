@@ -79,7 +79,7 @@ public class Web_Local_Desktop_Test {
 
         } finally {
 
-            System.out.println("Sauce - release driver. Session id is: " +sessionID );
+            System.out.println("Sauce - release driver");
             getDriver().quit();
         }
     }
