@@ -12,18 +12,19 @@ pool:
 variables:
   TUNNEL_NAME: 'sauce-tunnel-eu'
   BUILD_NAME: $(Build.DefinitionName):$(Build.BuildId)
+
 steps:
 - task: CmdLine@2
   inputs:
     script: |
       curl https://saucelabs.com/downloads/sc-4.6.5-linux.tar.gz | tar -xz
-      chmod 777 -R ./sc-4.6.2-linux      
+      chmod 777 -R ./sc-4.6.5-linux      
       PATH=./sc-4.6.5-linux/bin:$PATH
       sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY  -x "https://eu-central-1.saucelabs.com/rest/v1" -i $TUNNEL_NAME -v -s &
-      echo "start"
-      echo $(TUNNEL_NAME)
-      echo "end"
   displayName: 'install and start sauce tunnel'
+  env:
+    SAUCE_USERNAME: $(sauceUsername)
+    SAUCE_ACCESS_KEY: $(sauceAccessKey)
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -34,8 +35,11 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'clean install'
-    options: '-Dbuild=$(Build.DefinitionName):$(Build.BuildId) -Dregion=eu -DtestngXmlFile=web_local_desktop_test.xml'
+    options:  '-Dregion=eu -DtestngXmlFile=web_local_desktop_test.xml'
   displayName: 'run suite on Sauce desktop'
+  env:
+    SAUCE_USERNAME: $(sauceUsername)
+    SAUCE_ACCESS_KEY: $(sauceAccessKey)
 
 - task: CmdLine@2
   inputs:
@@ -43,5 +47,4 @@ steps:
       kill -SIGINT $(ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }')
       echo "** sleep 5 **"
       sleep 5
-      echo $(TUNNEL_NAME)
   displayName: 'kill tunnel'
