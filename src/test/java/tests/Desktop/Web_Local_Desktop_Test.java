@@ -64,10 +64,19 @@ public class Web_Local_Desktop_Test {
     @AfterMethod
     public void teardown(ITestResult result) {
         System.out.println("Sauce - AfterMethod hook");
-        String sessionID = ((RemoteWebDriver)getDriver()).getSessionId().toString();
         try {
             ((JavascriptExecutor) getDriver()).executeScript("sauce:job-result=" +
                     (result.isSuccess() ? "passed" : "failed"));
+            // built the execution URL
+            String executionURL = "";
+            if (region.equalsIgnoreCase("eu")) {
+                executionURL = "https://app.eu-central-1.saucelabs.com/tests/";
+            } else {
+                executionURL = "https://app.saucelabs.com/tests/";
+            }
+            String sessionID = ((RemoteWebDriver)getDriver()).getSessionId().toString();
+            System.out.println(executionURL + sessionID);
+
         } finally {
 
             System.out.println("Sauce - release driver. Session id is: " +sessionID );
