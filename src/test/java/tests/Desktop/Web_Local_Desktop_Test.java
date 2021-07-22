@@ -75,6 +75,7 @@ public class Web_Local_Desktop_Test {
                 executionURL = "https://app.saucelabs.com/tests/";
             }
             String sessionID = ((RemoteWebDriver)getDriver()).getSessionId().toString();
+            System.out.println("The execution URL:");
             System.out.println(executionURL + sessionID);
 
         } finally {
