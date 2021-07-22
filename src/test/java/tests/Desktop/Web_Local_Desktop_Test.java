@@ -64,15 +64,13 @@ public class Web_Local_Desktop_Test {
     @AfterMethod
     public void teardown(ITestResult result) {
         System.out.println("Sauce - AfterMethod hook");
+        String sessionID = ((RemoteWebDriver)getDriver()).getSessionId().toString();
         try {
             ((JavascriptExecutor) getDriver()).executeScript("sauce:job-result=" +
                     (result.isSuccess() ? "passed" : "failed"));
         } finally {
 
-            setEnv("TUNNEL_NAME", "eyal");
-            System.out.println("Sauce - new name is " + System.getenv("TUNNEL_NAME"));
-            
-            System.out.println("Sauce - release driver");
+            System.out.println("Sauce - release driver. Session id is: " +sessionID );
             getDriver().quit();
         }
     }
