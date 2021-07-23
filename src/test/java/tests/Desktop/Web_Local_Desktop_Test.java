@@ -100,6 +100,17 @@ public class Web_Local_Desktop_Test {
         Assert.assertEquals(getTitle, "Swag Labs");
     }
 
+    @Test
+    public void checkLocalSwagLabsTitle2() {
+        System.out.println("Sauce - Start checkLocalSwagLabsTitle2 test");
+        WebDriver driver = getDriver();
+
+
+        driver.navigate().to("https://www.saucedemo.com");
+        String getTitle = driver.getTitle();
+        Assert.assertEquals(getTitle, "Swag Labs");
+    }
+
     public static void setEnv(String key, String value) {
         try {
             Map<String, String> env = System.getenv();
