@@ -41,10 +41,10 @@ steps:
     SAUCE_USERNAME: $(sauceUsername)
     SAUCE_ACCESS_KEY: $(sauceAccessKey)
 
-- task: CmdLine@2
-  inputs:
-    script: |
-      kill -SIGINT $(ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }')
-      echo "** sleep 5 **"
-      sleep 5
-  displayName: 'kill tunnel'
+# - task: CmdLine@2
+#   inputs:
+#     script: |
+#       kill -SIGINT $(ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }')
+#       echo "** sleep 5 **"
+#       sleep 5
+#   displayName: 'kill tunnel'
