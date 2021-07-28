@@ -25,41 +25,41 @@ steps:
   env:
     SAUCE_USERNAME: $(sauceUsername)
     SAUCE_ACCESS_KEY: $(sauceAccessKey)
-# - task: Maven@3
-#   inputs:
-#     mavenPomFile: 'pom.xml'
-#     mavenOptions: '-Xmx3072m'
-#     javaHomeOption: 'JDKVersion'
-#     jdkVersionOption: '1.8'
-#     jdkArchitectureOption: 'x64'
-#     publishJUnitResults: true
-#     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-#     goals: 'clean install'
-#     options:  '-Dregion=eu -DtestngXmlFile=web_local_desktop_test.xml'
-#   displayName: 'run suite on Sauce desktop'
-#   env:
-#     SAUCE_USERNAME: $(sauceUsername)
-#     SAUCE_ACCESS_KEY: $(sauceAccessKey)
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    goals: 'clean install'
+    options:  '-Dregion=eu -DtestngXmlFile=web_local_desktop_test.xml'
+  displayName: 'run suite on Sauce desktop'
+  env:
+    SAUCE_USERNAME: $(sauceUsername)
+    SAUCE_ACCESS_KEY: $(sauceAccessKey)
 
-# - task: CmdLine@2
-#   inputs:
-#     script: |
-#       kill -SIGINT $(ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }')
-#       echo "** sleep 5 **"
-#       sleep 5
-#   displayName: 'kill tunnel'
+- task: CmdLine@2
+  inputs:
+    script: |
+      kill -SIGINT $(ps aux | grep sauce-tunnel-eu | grep -v grep | awk '{ print $2 }')
+      echo "** sleep 5 **"
+      sleep 5
+  displayName: 'kill tunnel'
 
-# - task: CmdLine@2
-#   inputs:
-#     script: |
-#       echo "build name is " + $BUILD_NAME
-#       curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location --request GET "https://api.eu-central-1.saucelabs.com/v1/analytics/trends/builds_tests?time_range=1d" |  jq '.builds .items'  | jq --arg BUILD_NAME "$BUILD_NAME" '.[] | select(.name == $BUILD_NAME)' |  jq '.tests' | jq '.[]' | jq  '.name ,.id , .status ' > results.txt
-#   displayName: 'Create result file'
-#   env:
-#     SAUCE_USERNAME: $(sauceUsername)
-#     SAUCE_ACCESS_KEY: $(sauceAccessKey)
+- task: CmdLine@2
+  inputs:
+    script: |
+      echo "build name is " + $BUILD_NAME
+      curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location --request GET "https://api.eu-central-1.saucelabs.com/v1/analytics/trends/builds_tests?time_range=1d" |  jq '.builds .items'  | jq --arg BUILD_NAME "$BUILD_NAME" '.[] | select(.name == $BUILD_NAME)' |  jq '.tests' | jq '.[]' | jq  '.name ,.id , .status ' > results.txt
+  displayName: 'Create result file'
+  env:
+    SAUCE_USERNAME: $(sauceUsername)
+    SAUCE_ACCESS_KEY: $(sauceAccessKey)
 
-# - task: PublishPipelineArtifact@1
-#   inputs:
-#     targetPath: results.txt
-#     artifactName: SauceLabs_Results
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: results.txt
+    artifactName: SauceLabs_Results
