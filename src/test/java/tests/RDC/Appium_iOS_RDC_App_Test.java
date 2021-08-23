@@ -19,6 +19,7 @@ import org.testng.annotations.Test;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class Appium_iOS_RDC_App_Test {
     String usernameID = "test-Username";
     String passwordID = "test-Password";
     String submitButtonID = "test-LOGIN";
-    By ProductTitle = By.xpath("//XCUIElementTypeStaticText[@name=\"PRODUCTS\"]\n");
+    By productTitle = By.xpath("//XCUIElementTypeStaticText[@name=\"PRODUCTS\"]");
 
 
     @BeforeMethod
@@ -48,15 +49,17 @@ public class Appium_iOS_RDC_App_Test {
         URL url = new URL(SAUCE_REMOTE_URL);
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("deviceName", "iPhone 8.*");
+        capabilities.setCapability("deviceName", "iPhone.*");
 //        capabilities.setCapability("privateDevicesOnly", "true");
         capabilities.setCapability("platformName", "iOS");
         capabilities.setCapability("automationName", "XCuiTest");
         capabilities.setCapability("app", "storage:filename="+appName);
+
         capabilities.setCapability("name", methodName);
         capabilities.setCapability("noReset", true);
         capabilities.setCapability("cacheId", "1234");
-        capabilities.setCapability("tags", "sauceDemo1");
+        List<String> tags = Arrays.asList("sauceDemo", "Mobile", "javaTest");
+        capabilities.setCapability("tags", tags);
         capabilities.setCapability("build", "myBuild1");
         try {
             iosDriver.set(new IOSDriver(url, capabilities));
@@ -92,6 +95,11 @@ public class Appium_iOS_RDC_App_Test {
         System.out.println("Sauce - Start loginToSwagLabsTestValid test");
         login("standard_user", "secret_sauce");
 
+//        IOSDriver driver = getiosDriver();
+//        Map<String, Object> params = new HashMap<>();
+//        params.put("name", "home");
+//        ((JavascriptExecutor) driver).executeScript("mobile: pressButton", params);
+
         // Verificsation
         Assert.assertTrue(isOnProductsPage());
 
@@ -117,7 +125,8 @@ public class Appium_iOS_RDC_App_Test {
 
     public boolean isOnProductsPage() {
         IOSDriver driver = getiosDriver();
-        return driver.findElement(ProductTitle).isDisplayed();
+        return driver.findElement(productTitle).isDisplayed();
+
     }
 
 }
